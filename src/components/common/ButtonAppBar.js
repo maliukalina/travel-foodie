@@ -17,7 +17,7 @@ export default function ButtonAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ background: '#2E3B55' }}>
+      <AppBar position="static" style={{ background: '#2E3B55', color: 'aliceblue' }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -28,7 +28,7 @@ export default function ButtonAppBar() {
           >
            {/* <MenuIcon />*/}
           </IconButton>
-          <Typography onClick={handleClick} variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography onClick={() =>  navigate('/') } style={{cursor: 'pointer'}} variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Travel Foodie
           </Typography>
           <Button onClick={handleClick} color="inherit">Login</Button>

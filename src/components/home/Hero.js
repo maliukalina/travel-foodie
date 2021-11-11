@@ -3,6 +3,9 @@ import "./hero.css"
 
 
 export default function Hero() {
+  const handleGetStarted = () => {
+    document.getElementById('main').scrollIntoView({ behavior: 'smooth' })
+  }
 return(
   <div>
         {/*<div className="bgImage"></div>*/}
@@ -13,7 +16,7 @@ return(
           </div>
           <div className="textCell">
           <p className="textHeader">Find your ideal Foodie Destination in the World</p>
-          <button className="button">Get started</button>
+          <button onClick={handleGetStarted} className="button">Get started</button>
           </div>
           
         </div>

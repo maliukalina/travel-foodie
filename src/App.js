@@ -1,17 +1,32 @@
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom'
 import React from 'react';
 import './App.css';
+import { blue, pink } from '@mui/material/colors';
+import { createTheme } from '@mui/material';
+import {ThemeProvider} from '@emotion/react';
 import Home from './scenes/Home';
 import SearchResults from './scenes/SearchResults';
 import Login from './scenes/Login';
 import LoggedIn from './scenes/LoggedIn';
 import Footer from './components/common/Footer';
 
-
+const theme = createTheme({
+  palette: {
+    mode: 'light',
+    primary: {
+      main: blue[900],
+    },
+    secondary: {
+      main: pink[400],
+    }
+  },
+  
+});
 
 function App() {
   return (
    <Router>
+      <ThemeProvider theme={theme}>
      {/*<header>
       <nav style ={{
         padding: '.3em', 
@@ -30,7 +45,7 @@ function App() {
     <Route path ='/Login' element={<Login/>} />
     <Route exact path ='/' element={<Home/>} />
     </Routes>
-
+    </ThemeProvider>
       </Router>
   );
 }
