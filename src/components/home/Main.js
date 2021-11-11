@@ -182,8 +182,7 @@ function Main() {
             aria-label="large button group"
           >
             <Button color={budget === "$" ? "secondary" : "primary"} value="$" onClick={(e) => setBudget(e.target.value)}>$</Button>
-            <Button color={budget === "$$" ? "secondary" : "primary"} value="$$" onClick={(e) => setBudget(e.target.value)} >$$</Button>
-            <Button color={budget === "$$$" ? "secondary" : "primary"} value="$$$" onClick={(e) => setBudget(e.target.value)} >$$$</Button>
+            <Button color={budget === "$$ = $$$" ? "secondary" : "primary"} value="$$" onClick={(e) => setBudget(e.target.value)} >$$ - $$$</Button>
             <Button color={budget === "$$$$" ? "secondary" : "primary"} value="$$$$" onClick={(e) => setBudget(e.target.value)}>$$$$</Button>
           </ButtonGroup>
           <br />
