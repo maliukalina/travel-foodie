@@ -10,48 +10,38 @@ import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 
+
 function Main() {
   const [cuisine, setCuisine] = useState();
   const [food, setFood] = useState();
   const [selectedCuisine, setSelectedCuisine] = useState([]);
   const [selectedFood, setSelectedFood] = useState([]);
   const [budget, setBudget] = useState("")
+
+  const navigate = useNavigate();
   
   useEffect(() => {
-    fetch("https://travel-foodie-8fe89.web.app/cuisine")
+    //fetch("https://travel-foodie-8fe89.web.app/cuisine")
+    fetch("http://localhost:5001/travel-foodie-8fe89/us-central1/app/cuisine")
       .then((response) => response.json())
       .then(setCuisine)
       .catch(alert);
   }, []);
   useEffect(() => {
-    fetch("https://travel-foodie-8fe89.web.app/food")
+    //fetch("https://travel-foodie-8fe89.web.app/food")
+    fetch("http://localhost:5001/travel-foodie-8fe89/us-central1/app/food")
       .then((response) => response.json())
       .then(setFood)
       .catch(alert);
   }, []);
 
   const handleSubmit = (e) => {
-    const data = {
-      cuisine: selectedCuisine,
-      food: selectedFood,
-      budget: budget,
-    };
-    console.log (data)
-    fetch("https://travel-foodie-8fe89.web.app/search", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => {
-        res.json();
-      })
-      .then ((output) => {
-        console.log(output);
-        //alert("Item added successfully");
-      })
-      .catch((err) => alert(err));
+    //console.log (data)
+    window.localStorage.setItem('selectedCuisine', JSON.stringify(selectedCuisine));
+    window.localStorage.setItem('selectedFood', JSON.stringify(selectedFood));
+    window.localStorage.setItem('budget', budget);
+    navigate("/SerchResults")
+    
   };
 
   const handleCuisineChange = (e) => {
@@ -88,11 +78,6 @@ function Main() {
     }
 
   }
-
- /*const navigate = useNavigate();
-  const handleClick = () => {
-    navigate("/SerchResults");*/
-
 
   return (
     <div id="main">
@@ -182,7 +167,7 @@ function Main() {
             aria-label="large button group"
           >
             <Button color={budget === "$" ? "secondary" : "primary"} value="$" onClick={(e) => setBudget(e.target.value)}>$</Button>
-            <Button color={budget === "$$ = $$$" ? "secondary" : "primary"} value="$$" onClick={(e) => setBudget(e.target.value)} >$$ - $$$</Button>
+            <Button color={budget === "$$ - $$$" ? "secondary" : "primary"} value="$$ - $$$" onClick={(e) => setBudget(e.target.value)} >$$ - $$$</Button>
             <Button color={budget === "$$$$" ? "secondary" : "primary"} value="$$$$" onClick={(e) => setBudget(e.target.value)}>$$$$</Button>
           </ButtonGroup>
           <br />
