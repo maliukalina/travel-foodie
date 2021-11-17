@@ -1,0 +1,38 @@
+.textForCity {
+  position:absolute;
+  background-size: cover;
+  width: auto;
+  height: 100vh;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 100px;
+  padding-right: 100px;
+  line-height: 1.2;
+  opacity: .9;
+  color: aliceblue;
+}
+.searchText {
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  font-size: 2vw;
+}
+
+.cityName {
+  font-family: "Montserrat", sans-serif;
+  line-height: 1;
+  text-transform: capitalize;
+  text-decoration-style: solid;
+  text-align: center;
+  font-weight: 900;
+  font-size: 7vw;
+}
+

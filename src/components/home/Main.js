@@ -21,22 +21,19 @@ function Main() {
   const navigate = useNavigate();
   
   useEffect(() => {
-    //fetch("https://travel-foodie-8fe89.web.app/cuisine")
-    fetch("http://localhost:5001/travel-foodie-8fe89/us-central1/app/cuisine")
+    fetch("https://travel-foodie-8fe89.web.app/cuisine")
       .then((response) => response.json())
       .then(setCuisine)
       .catch(alert);
   }, []);
   useEffect(() => {
-    //fetch("https://travel-foodie-8fe89.web.app/food")
-    fetch("http://localhost:5001/travel-foodie-8fe89/us-central1/app/food")
+    fetch("https://travel-foodie-8fe89.web.app/food")
       .then((response) => response.json())
       .then(setFood)
       .catch(alert);
   }, []);
 
   const handleSubmit = (e) => {
-    //console.log (data)
     window.localStorage.setItem('selectedCuisine', JSON.stringify(selectedCuisine));
     window.localStorage.setItem('selectedFood', JSON.stringify(selectedFood));
     window.localStorage.setItem('budget', budget);
@@ -80,21 +77,21 @@ function Main() {
   }
 
   return (
-    <div id="main">
-      <h1>Main</h1>
+    <div id="main" style={{ backgroundColor: "#E1D6C6"}}>
       <form onSubmit={(e) => {
           e.preventDefault();
           handleSubmit(e)}}>
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-between" }}>
           <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
             <FormLabel style={{ fontSize: "20px" }} component="legend">
-              Select up to 5 cuisine you love
+              Select cuisine you love
             </FormLabel>
             <FormGroup
               sx={{
                 display: "flex",
                 flexDirection: "row",
-                justifyContent: "space-between",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
               {!cuisine ? (
@@ -122,7 +119,7 @@ function Main() {
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
             <FormLabel style={{ fontSize: "20px" }} component="legend">
-              Pick up to 5 food you love
+              Food restrictions
             </FormLabel>
             <FormGroup
               sx={{
@@ -171,7 +168,7 @@ function Main() {
             <Button color={budget === "$$$$" ? "secondary" : "primary"} value="$$$$" onClick={(e) => setBudget(e.target.value)}>$$$$</Button>
           </ButtonGroup>
           <br />
-          <Button type="submit" variant="contained">
+          <Button  style={{marginBottom: "20px"}} type="submit" variant="contained">
             Search
           </Button>
         </Box>

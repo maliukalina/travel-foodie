@@ -2,12 +2,12 @@ import React from "react";
 import Hero from "../components/home/Hero";
 import Main from "../components/home/Main";
 import Footer from "../components/common/Footer";
-import ButtonAppBar from "../components/common/ButtonAppBar";
+import Navbar from "../components/common/Navbar";
 
 function Home() {
   return(
     <>
-    <ButtonAppBar />
+    <Navbar />
     <Hero />
     <Main />
     <Footer />

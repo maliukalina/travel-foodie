@@ -4,7 +4,7 @@ import './footer.css'
 function Footer() {
   return(
     <div className="footer">
-    <p>© 2021 Alina Maliuk</p>
+    <p style={{alignContent: "center"}}>© 2021 Alina Maliuk</p>
     </div>
   )
 }

@@ -1,12 +1,22 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {Button, TextField} from '@mui/material'
-import ButtonAppBar from "../components/common/ButtonAppBar";
+import Navbar from "../components/common/Navbar";
+import Footer from "../components/common/Footer";
 
 function Login() {
+
+  const navigate = useNavigate();
+  const handleSubmit = (e) => {
+    navigate("/LoggedIn")
+  }
   return(
     <div>
-      <ButtonAppBar />
+      <Navbar />
       <h1>Sign Up</h1>
+      {/*<form onSubmit={(e) => {
+          e.preventDefault();
+      handleSubmit(e)}}>*/}
         <Button type='submit' variant="contained">Sign Up With Google</Button> 
         <h1>Create a new account</h1>
         <form /*onSubmit={handleForm}*/>
@@ -19,7 +29,6 @@ function Login() {
       <br />
       <Button type='submit' variant="contained">Sign Up</Button> 
       </form>
-      
     </div>
   )
 }

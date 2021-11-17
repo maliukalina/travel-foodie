@@ -1,5 +1,9 @@
 import React, {useState, useEffect} from "react";
-import ButtonAppBar from "../components/common/ButtonAppBar";
+import Navbar from "../components/common/Navbar";
+import Footer from "../components/common/Footer";
+import TopCity from "../components/second page/TopCity";
+import City from "../components/second page/City";
+
 
 function SearchResults() {
   const [selectedCuisine, setSelectedCuisine] = useState(JSON.parse(window.localStorage.getItem('selectedCuisine')));
@@ -10,14 +14,13 @@ function SearchResults() {
 
   
   useEffect(() => {
-    alert ('1')
     const data = {
       cuisine: selectedCuisine,
       food: selectedFood,
       budget: budget,
     };
-    console.log(data)
-    fetch("http://localhost:5001/travel-foodie-8fe89/us-central1/app/search", {
+    //console.log(data)
+    fetch("https://travel-foodie-8fe89.web.app/search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,21 +39,25 @@ function SearchResults() {
         data.matchingCities.map( item => {
           if (item.score===topObject.score) {topObject.name = item.name}
         })
-        console.log (topObject)
+        
         setTopCity (topObject)
+        
       })
       .catch(err => alert(err))
   }, [])
   
   return(
     <>
-    <ButtonAppBar />
-    <h1>Wooohooo.... We've found your dream foodie destination</h1>
-    {!topCity ? 
+    <Navbar />
+    {(!topCity.name) ? 
     ( <h2>Loading...</h2>) 
-    : (
-    <h3>Top City: {topCity.name} {topCity.score}</h3>
-    )}
+    : (<TopCity topCity={topCity}/>)
+    }
+    {(!topCity.name) ? 
+    ( <h2>Loading...</h2>) 
+    : (<City topCity={topCity}/>)
+    }
+    <Footer />
     </>
   )
 }

@@ -6,9 +6,10 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
+import LogoImage from './../../travel_foodie_logo.png';
 /*import MenuIcon from '@mui/icons-material/Menu';*/
 
-export default function ButtonAppBar() {
+export default function Navbar() {
 
   const navigate = useNavigate();
   const handleClick = () => {
@@ -17,7 +18,7 @@ export default function ButtonAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ background: '#2E3B55', color: 'aliceblue' }}>
+      <AppBar position="fixed" style={{ background: "rgba(0, 0, 0, 0.50)", color: 'aliceblue' }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -29,7 +30,7 @@ export default function ButtonAppBar() {
            {/* <MenuIcon />*/}
           </IconButton>
           <Typography onClick={() =>  navigate('/') } style={{cursor: 'pointer'}} variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Travel Foodie
+            <img src={LogoImage} />
           </Typography>
           <Button onClick={handleClick} color="inherit">Login</Button>
         </Toolbar>

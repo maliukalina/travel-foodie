@@ -1,11 +1,14 @@
 import React from "react";
-import ButtonAppBar from "../components/common/ButtonAppBar";
+import Navbar from "../components/common/Navbar";
+import Footer from "../components/common/Footer";
+
 
 function LoggedIn() {
   return(
     <>
-    <ButtonAppBar />
+    <Navbar />
     <h1>LoggedIn Page</h1>
+    <Footer />
     </>
   )
 }
