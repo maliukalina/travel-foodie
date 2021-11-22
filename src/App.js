@@ -18,11 +18,15 @@ const theme = createTheme({
     },
     secondary: {
       main: amber[600],
+    },
+    buttonTextColor: {
+      main: blue [900]
     }
+
+
   },
   
 });
-
 
 function App() {
   return (

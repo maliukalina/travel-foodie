@@ -21,13 +21,13 @@ function Main() {
   const navigate = useNavigate();
   
   useEffect(() => {
-    fetch("https://travel-foodie-8fe89.web.app/cuisine")
+    fetch(`${process.env.REACT_APP_API_URL}/cuisine`)
       .then((response) => response.json())
       .then(setCuisine)
       .catch(alert);
   }, []);
   useEffect(() => {
-    fetch("https://travel-foodie-8fe89.web.app/food")
+    fetch(`${process.env.REACT_APP_API_URL}/food`)
       .then((response) => response.json())
       .then(setFood)
       .catch(alert);
@@ -105,6 +105,7 @@ function Main() {
                           inputProps={{ "aria-label": "controlled" }}
                           name={item.id}
                           value={item.name} onChange={handleCuisineChange}
+                          color="buttonTextColor"
                           
                         />
                       }
@@ -139,6 +140,7 @@ function Main() {
                           inputProps={{ "aria-label": "controlled" }}
                           value={item.name} onChange={handleFoodChange}
                           name={item.id}
+                          color="buttonTextColor"
                           id={item.id}
                         />
                       }
@@ -168,7 +170,7 @@ function Main() {
             <Button color={budget === "$$$$" ? "secondary" : "primary"} value="$$$$" onClick={(e) => setBudget(e.target.value)}>$$$$</Button>
           </ButtonGroup>
           <br />
-          <Button  style={{marginBottom: "20px"}} type="submit" variant="contained">
+          <Button style={{marginBottom: "20px"}} type="submit" variant="contained">
             Search
           </Button>
         </Box>

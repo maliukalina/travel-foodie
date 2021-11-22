@@ -9,7 +9,6 @@ export default function Hero() {
   }
 return(
   <div>
-        {/*<div className="bgImage"></div>*/}
         <div className="textBlock">
         <div className="textCell">
           <p className="allText">Our App searches for personalized culinary vacations that promise incredible dinning options. If you love food and want to explore a new destinations, try Foodie Travel App today

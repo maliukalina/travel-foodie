@@ -6,18 +6,17 @@ import './city.css'
 function City({ topCity }) {
   const [city, setCity] = useState();
   useEffect(() => {
-    fetch(`http://localhost:5001/travel-foodie-8fe89/us-central1/app/cities/${topCity.name}`)
+    fetch(`${process.env.REACT_APP_API_URL}/cities/${topCity.name}`)
       .then((response) => response.json())
-      .then( (data) => {
-        setCity (data)
-      })
+      .then(setCity)
       .catch(alert);
   }, [topCity]);
 
   const navigate = useNavigate();
   const handleSubmit = (e) => {
-    navigate("/Login")
+    navigate("/LoggedIn")
   }
+
   return(
     <>
     <p className="cityDescription">{city && city.description || 'Loading...'}</p>
