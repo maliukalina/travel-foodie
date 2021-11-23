@@ -4,12 +4,25 @@ import Main from "../components/home/Main";
 import Footer from "../components/common/Footer";
 import Navbar from "../components/common/Navbar";
 
-function Home() {
+function Home(
+  { 
+    selectedCuisine, selectedFood, budget,
+    setSelectedCuisine, setSelectedFood, setBudget,
+    setUser, user
+  }
+) {
   return(
     <>
-    <Navbar />
+    <Navbar user={user}/>
     <Hero />
-    <Main />
+    <Main 
+    selectedCuisine={selectedCuisine}
+    selectedFood={selectedFood}
+    budget={budget}
+    setSelectedCuisine={setSelectedCuisine}
+    setSelectedFood={setSelectedFood} 
+    setBudget={setBudget} 
+    />
     <Footer />
     </>
   )

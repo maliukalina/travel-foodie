@@ -11,6 +11,8 @@
   text-decoration-style: solid;
   font-size: 3vw;
   text-align: center;
+  padding-top: 10px;
+  padding-bottom: 20px;
 }
 .textSign {
   font-family: "Montserrat", sans-serif;

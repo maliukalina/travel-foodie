@@ -9,11 +9,10 @@ import IconButton from '@mui/material/IconButton';
 import LogoImage from './../../travel_foodie_logo.png';
 /*import MenuIcon from '@mui/icons-material/Menu';*/
 
-export default function Navbar() {
-
+export default function Navbar( {user} ) {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate('/Login')
+    navigate('/LoggedIn')
   }
 
   return (
@@ -32,7 +31,11 @@ export default function Navbar() {
           <Typography onClick={() =>  navigate('/') } style={{cursor: 'pointer'}} variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <img src={LogoImage} />
           </Typography>
-          <Button onClick={handleClick} color="inherit">Login</Button>
+          {!user ? (
+            <Button onClick={handleClick} color="inherit">Login</Button>
+          ) : 
+          ( <Typography> Welcome, {user.displayName ? user.displayName : ""} </Typography>)
+          }
         </Toolbar>
       </AppBar>
     </Box>

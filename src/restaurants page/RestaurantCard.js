@@ -6,6 +6,8 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
+import IconButton from '@mui/material/IconButton';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 
 
 
@@ -13,7 +15,7 @@ export default function RestaurantCard({ topCity, matchingRestaurants }) {
   
   return (
     <>
-      <h1>Your Top {topCity.name} Restaurants</h1>
+      
       <Grid
         container
         spacing={2}
@@ -25,16 +27,20 @@ export default function RestaurantCard({ topCity, matchingRestaurants }) {
         paddingRight="20px"
       >
         {matchingRestaurants.map((item) => {
-          let imageURL = `${process.env.REACT_APP_API_URL}/${item.id}.jpeg`
+          let imageURL = `${item.url}`
           return (
             <Grid item xs={12} sm={6} md={3}>
               <Card sx={{ maxWidth: 345, height: 350, display: "flex", flexDirection: "column", justifyContent: "center"}}>
+              <IconButton  style={{position: 'absolute', paddingTop:"20px"}}>
+          <BookmarkBorderIcon aria-label="bookmarks icon"/>
+       </IconButton>
                 <CardMedia
                   component="img"
                   height="140"
                   image={imageURL}
                   alt={item.name}
                 />
+                
                 <CardContent> 
                   <Typography gutterBottom variant="h5" component="div">
                     {item.name}

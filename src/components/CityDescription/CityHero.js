@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from "react";
-import "./topCity.css";
+import "./CityHero.css";
 import ScrollAnimation from "../common/ScrollAnimation";
 
 
-export default function TopCity({ topCity }) {
+export default function CityHero({ topCity }) {
   
   return (
     <div>

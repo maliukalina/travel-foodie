@@ -9,14 +9,17 @@ import FormHelperText from "@mui/material/FormHelperText";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
+import Grid from "@mui/material/Grid";
 
 
-function Main() {
+function Main(
+  { 
+    selectedCuisine, selectedFood, budget,
+    setSelectedCuisine, setSelectedFood, setBudget
+  }
+) {
   const [cuisine, setCuisine] = useState();
   const [food, setFood] = useState();
-  const [selectedCuisine, setSelectedCuisine] = useState([]);
-  const [selectedFood, setSelectedFood] = useState([]);
-  const [budget, setBudget] = useState("")
 
   const navigate = useNavigate();
   
@@ -34,10 +37,7 @@ function Main() {
   }, []);
 
   const handleSubmit = (e) => {
-    window.localStorage.setItem('selectedCuisine', JSON.stringify(selectedCuisine));
-    window.localStorage.setItem('selectedFood', JSON.stringify(selectedFood));
-    window.localStorage.setItem('budget', budget);
-    navigate("/SerchResults")
+    navigate("/SearchResults")
     
   };
 
@@ -82,10 +82,21 @@ function Main() {
           e.preventDefault();
           handleSubmit(e)}}>
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-between" }}>
+        <Grid
+        container
+        spacing={2}
+        direction="row"
+        justify="flex-start"
+        alignItems="flex-start"
+        paddingBottom="20px"
+        paddingLeft="20px"
+        paddingRight="20px"
+      >
           <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
             <FormLabel style={{ fontSize: "20px" }} component="legend">
               Select cuisine you love
             </FormLabel>
+            
             <FormGroup
               sx={{
                 display: "flex",
@@ -116,6 +127,7 @@ function Main() {
               )}
             </FormGroup>
           </FormControl>
+          </Grid>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">

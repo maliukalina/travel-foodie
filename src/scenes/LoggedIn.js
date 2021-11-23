@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/common/Navbar";
 import Footer from "../components/common/Footer";
 import RestaurantCard from "../restaurants page/RestaurantCard";
-import TopCity from "../components/city page/TopCity";
+import LoginForm from "../components/common/LoginForm";
+import CityCard from "../restaurants page/CityCard";
 
-function LoggedIn() {
+
+function LoggedIn({user,setUser}) {
+  
   const [selectedCuisine, setSelectedCuisine] = useState(
     JSON.parse(window.localStorage.getItem("selectedCuisine"))
   );
@@ -38,18 +41,29 @@ function LoggedIn() {
       .catch(alert);
   }, [topCity]);
 
-  return (
+  return ( 
     <>
-      <Navbar />
-      {!topCity.name ? <h2>Loading...</h2> : <TopCity topCity={topCity} />}
-      {!matchingRestaurants ? (
-        <h2>Loading...</h2>
-      ) : (
-        <RestaurantCard
+      <Navbar user={user}/>
+      {user ? (
+        !topCity.name ? (
+          <h2>Loading...</h2>
+        ) : (
+          <CityCard
+            topCity={topCity}
+            matchingRestaurants={matchingRestaurants}
+          />
+        )
+      ): (
+        <LoginForm setUser={setUser} type="login"/>
+      )
+    }
+      
+      <RestaurantCard
           topCity={topCity}
           matchingRestaurants={matchingRestaurants}
         />
-      )}
+      
+      
       <Footer />
     </>
   );
