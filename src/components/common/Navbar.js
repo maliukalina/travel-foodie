@@ -34,7 +34,7 @@ export default function Navbar( {user} ) {
           {!user ? (
             <Button onClick={handleClick} color="inherit">Login</Button>
           ) : 
-          ( <Typography> Welcome, {user.displayName ? user.displayName : ""} </Typography>)
+          ( <Typography> Welcome, {user.displayName ? user.displayName : user.name} </Typography>)
           }
         </Toolbar>
       </AppBar>

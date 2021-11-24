@@ -27,7 +27,6 @@ const firebaseConfig = {
 
 
 export default function Login({ setUser, type }) {
-  console.log (type)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [formType, setFormType] = useState("login")
@@ -55,8 +54,23 @@ export default function Login({ setUser, type }) {
     const provider = new GoogleAuthProvider()
     signInWithPopup(auth, provider)
       .then(response => {
-        console.log (response.user)
-        setUser(response.user)
+        let userObj = {
+          name: response.user.displayName,
+          email: response.user.email,
+          uid: response.user.uid
+        }
+        fetch(`${process.env.REACT_APP_API_URL}/createUser`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userObj),
+        })
+          .then((apiResponse) => apiResponse.json())
+          .then((data) => {
+            setUser(data)    
+          })
+          .catch(alert);
       })
       .catch(err => alert(err.message))
   }

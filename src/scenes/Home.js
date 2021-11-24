@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Hero from "../components/home/Hero";
 import Main from "../components/home/Main";
 import Footer from "../components/common/Footer";
@@ -11,6 +11,12 @@ function Home(
     setUser, user
   }
 ) {
+  useEffect (() => {
+    setSelectedCuisine([])
+    setSelectedFood([])
+    setBudget("")
+  }, [])
+
   return(
     <>
     <Navbar user={user}/>

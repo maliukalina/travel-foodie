@@ -12,12 +12,13 @@ function SearchResults(
   { 
     selectedCuisine, selectedFood, budget,
     setSelectedCuisine, setSelectedFood, setBudget,
-    setUser, user
+    setUser, user, topCity, setTopCity
   }
 ) {
   
-  const [topCity, setTopCity] = useState({});
+  
   const [matchingRestaurants, setMatchingRestaurants] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.localStorage.setItem("topCity", JSON.stringify(topCity));
@@ -39,7 +40,10 @@ function SearchResults(
     })
       .then((res) => res.json())
       .then((data) => {
-        
+        if (data.length<1) {
+          alert ("There is no restaurants found for your criteria. Please try again")
+          navigate ('/')
+        }
         let topObject = {
           name: "",
           score: Math.max.apply(
@@ -78,12 +82,13 @@ function SearchResults(
     })
       .then((response) => response.json())
       .then((data) => {
-        setMatchingRestaurants(data);
+        if (data.length>0)
+          setMatchingRestaurants(data);
       })
       .catch(alert);
   }, [topCity]);
 
-  const navigate = useNavigate();
+  
   const handleSubmit = (e) => {
     navigate("/LoggedIn")
   }
@@ -94,7 +99,6 @@ function SearchResults(
       {!topCity.name ? <h2>Loading...</h2> : <CityHero topCity={topCity} />}
       {!topCity.name ? <h2>Loading...</h2> : <CityDescription topCity={topCity} />}
       <RestaurantCard
-          topCity={topCity}
           matchingRestaurants={matchingRestaurants}
         />
         <div className="textSign">

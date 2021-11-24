@@ -50,7 +50,7 @@ export default function SignupForm({ setUser }) {
           .then((apiResponse) => apiResponse.json())
           .then((data) => {
             response.user.displayName = name
-            setUser(response.user)    
+            setUser(data)    
           })
           .catch(alert);
       })

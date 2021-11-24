@@ -33,12 +33,24 @@ function App() {
   const [selectedCuisine, setSelectedCuisine] = useState([])
   const [selectedFood, setSelectedFood] = useState([]);
   const [budget, setBudget] = useState("");
+  const [topCity, setTopCity] = useState({});
+
   return (
    <Router>
       <ThemeProvider theme={theme}>
     
     <Routes>
-    <Route path ='/LoggedIn' element={<LoggedIn setUser={setUser} user={user}/>} />
+    <Route path ='/LoggedIn' element={<LoggedIn 
+    selectedCuisine={selectedCuisine}
+    selectedFood={selectedFood}
+    budget={budget}
+    setSelectedCuisine={setSelectedCuisine}
+    setSelectedFood={setSelectedFood} 
+    setBudget={setBudget}
+    setUser={setUser} 
+    user={user} 
+    topCity={topCity}
+    />} />
     <Route path ='/SearchResults' 
     element={<SearchResults 
     selectedCuisine={selectedCuisine}
@@ -48,7 +60,9 @@ function App() {
     setSelectedFood={setSelectedFood} 
     setBudget={setBudget}
     setUser={setUser} 
-    user={user} 
+    user={user}
+    topCity={topCity} 
+    setTopCity={setTopCity} 
     />} />
    {/* <Route path ='/Login' element={<Login/>} />*/}
     <Route exact path ='/' element={<Home 
