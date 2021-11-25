@@ -7,10 +7,10 @@ import Navbar from "../components/common/Navbar";
 function Home(
   { 
     selectedCuisine, selectedFood, budget,
-    setSelectedCuisine, setSelectedFood, setBudget,
-    setUser, user
+    setSelectedCuisine, setSelectedFood, setBudget
   }
 ) {
+  
   useEffect (() => {
     setSelectedCuisine([])
     setSelectedFood([])
@@ -19,7 +19,7 @@ function Home(
 
   return(
     <>
-    <Navbar user={user}/>
+    <Navbar />
     <Hero />
     <Main 
     selectedCuisine={selectedCuisine}

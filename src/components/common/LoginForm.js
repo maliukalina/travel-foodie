@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import { initializeApp } from "firebase/app"
 import { getAuth, signInWithEmailAndPassword,
   GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
@@ -14,7 +14,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import SignupForm from './SignupForm';
-
+import { UserContext } from "../../App";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBG6pJBQvnWqBP1OTUpRAYLQqZkDtJIfzo",
@@ -26,12 +26,13 @@ const firebaseConfig = {
 };
 
 
-export default function Login({ setUser, type }) {
+export default function Login({ type }) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [formType, setFormType] = useState("login")
   const app = initializeApp(firebaseConfig)
   const auth = getAuth(app)
+  const {setUser, setIsLoggedIn} = useContext(UserContext)
 
   const handleLogin = (e) => {
     e.preventDefault()
@@ -149,7 +150,7 @@ export default function Login({ setUser, type }) {
             alignItems: 'center',
           }}
         >
-      <SignupForm setUser={setUser}/>
+      <SignupForm />
       <Button value="login" onClick={(e) => setFormType(e.target.value)}
               variant="contained"  sx={{ mt: 3, mb: 2 }}>Login
             </Button>

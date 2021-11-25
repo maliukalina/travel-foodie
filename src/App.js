@@ -6,7 +6,7 @@ import { createTheme } from '@mui/material';
 import {ThemeProvider} from '@emotion/react';
 import Home from './scenes/Home';
 import SearchResults from './scenes/SearchResults';
-import LoggedIn from './scenes/LoggedIn';
+import MyAccount from './scenes/MyAccount';
 import Footer from './components/common/Footer';
 
 const theme = createTheme({
@@ -49,15 +49,13 @@ function App() {
       <ThemeProvider theme={theme}>
     
     <Routes>
-    <Route path ='/LoggedIn' element={<LoggedIn 
+    <Route path ='/MyAccount' element={<MyAccount
     selectedCuisine={selectedCuisine}
     selectedFood={selectedFood}
     budget={budget}
     setSelectedCuisine={setSelectedCuisine}
     setSelectedFood={setSelectedFood} 
     setBudget={setBudget}
-    setUser={setUser} 
-    user={user} 
     topCity={topCity}
     />} />
     <Route path ='/SearchResults' 
@@ -68,8 +66,6 @@ function App() {
     setSelectedCuisine={setSelectedCuisine}
     setSelectedFood={setSelectedFood} 
     setBudget={setBudget}
-    setUser={setUser} 
-    user={user}
     topCity={topCity} 
     setTopCity={setTopCity} 
     />} />
@@ -81,8 +77,6 @@ function App() {
     setSelectedCuisine={setSelectedCuisine}
     setSelectedFood={setSelectedFood} 
     setBudget={setBudget}
-    setUser={setUser} 
-    user={user} 
     />} />
     </Routes>
     </ThemeProvider>

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useContext} from 'react';
 import { useNavigate } from "react-router-dom";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -7,12 +7,15 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import LogoImage from './../../travel_foodie_logo.png';
-/*import MenuIcon from '@mui/icons-material/Menu';*/
+import { UserContext } from "../../App";
 
-export default function Navbar( {user} ) {
+export default function Navbar() {
   const navigate = useNavigate();
+
+  const {user} = useContext(UserContext)
+
   const handleClick = () => {
-    navigate('/LoggedIn')
+    navigate('/MyAccount')
   }
 
   return (

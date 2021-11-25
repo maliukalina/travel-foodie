@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import { initializeApp } from "firebase/app"
 import { getAuth, createUserWithEmailAndPassword,
   GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
@@ -13,6 +13,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { UserContext } from "../../App";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBG6pJBQvnWqBP1OTUpRAYLQqZkDtJIfzo",
@@ -23,12 +24,13 @@ const firebaseConfig = {
   appId: "1:5722804764:web:f8f81c771b24f4d95e85d9"
 };
 
-export default function SignupForm({ setUser }) {
+export default function SignupForm() {
   const [email, setEmail] = useState("")
   const [name, setName] = useState("")
   const [password, setPassword] = useState("")
   const app = initializeApp(firebaseConfig)
   const auth = getAuth(app)
+  const {setUser, setIsLoggedIn} = useContext(UserContext)
 
   const handleSignup = (e) => {
     e.preventDefault()

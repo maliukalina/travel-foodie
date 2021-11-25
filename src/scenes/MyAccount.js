@@ -1,20 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, {useContext, useState, useEffect } from "react";
 import Box from '@mui/material/Box';
 import Navbar from "../components/common/Navbar";
 import Footer from "../components/common/Footer";
 import LoginForm from "../components/common/LoginForm";
 import RestaurantCard from "../restaurants page/RestaurantCard";
 import CityCard from "../restaurants page/CityCard";
+import { UserContext } from "../App";
 
 function LoggedIn({
   selectedCuisine, selectedFood, budget,
   setSelectedCuisine, setSelectedFood, setBudget,
-  setUser, user, topCity
+  topCity
 }) {
   const [destinations, setDestinations] = useState ()
   const [selectedDestination, setSelectedDestination] = useState ()
   const [matchingRestaurants, setMatchingRestaurants] = useState([]);
   const [bookmarkedRestaurants, setBookmarkedRestaurants] = useState([]);
+
+  const {setUser, setIsLoggedIn, user, isLoggedIn} = useContext(UserContext)
 
   useEffect(() => {
     if (user) setDestinations(user.destinations)
@@ -73,10 +76,10 @@ function LoggedIn({
 
   return ( 
     <>
-    <Navbar user={user}/>
+    <Navbar />
     {
        !user ? ( 
-        <LoginForm setUser={setUser} type="login"/>
+        <LoginForm type="login"/>
        ) : (
         <Box>
           <CityCard

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Navbar from "../components/common/Navbar";
@@ -12,7 +12,7 @@ function SearchResults(
   { 
     selectedCuisine, selectedFood, budget,
     setSelectedCuisine, setSelectedFood, setBudget,
-    setUser, user, topCity, setTopCity
+    topCity, setTopCity
   }
 ) {
   
@@ -92,12 +92,12 @@ function SearchResults(
 
   
   const handleSubmit = (e) => {
-    navigate("/LoggedIn")
+    navigate("/MyAccount")
   }
 
   return (
     <>
-      <Navbar user={user}/>
+      <Navbar />
       {!(topCity && topCity.name) ? <h2>Loading...</h2> : <CityHero topCity={topCity} />}
       {!(topCity && topCity.name) ? <h2>Loading...</h2> : <CityDescription topCity={topCity} />}
       <RestaurantCard
