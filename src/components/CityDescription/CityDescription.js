@@ -3,12 +3,15 @@ import React, {useState, useEffect} from "react";
 import './cityDescription.css'
 
 function CityDescription({ topCity }) {
+  
   const [city, setCity] = useState();
   useEffect(() => {
+  if (topCity) {
     fetch(`${process.env.REACT_APP_API_URL}/cities/${topCity.name}`)
       .then((response) => response.json())
       .then(setCity)
       .catch(alert);
+  }
   }, [topCity]);
 
   

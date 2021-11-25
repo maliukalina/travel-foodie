@@ -5,13 +5,16 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 
 
 function Bookmark() {
+  const [clicked, setClicked] = useState(false)
   return(
+<>
 
-
-<IconButton size="large"  style={{position: 'absolute',}}>
-          <BookmarkBorderIcon aria-label="bookmarks icon" />
-</IconButton>
-
+<IconButton onClick={handleClick} value={false} name={item.id} id={item.id} size="large"  style={{position: 'absolute', paddingLeft:"300px"}}>
+         
+         {clicked ? <BookmarkIcon /> : <BookmarkBorderIcon /> }
+         
+         </IconButton>
+</>
 )
 }
 

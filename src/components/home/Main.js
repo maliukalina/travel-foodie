@@ -10,7 +10,8 @@ import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Grid from "@mui/material/Grid";
-
+import cuisineFile from "../../assets/cuisine"
+import foodFile from "../../assets/food"
 
 function Main(
   { 
@@ -18,27 +19,31 @@ function Main(
     setSelectedCuisine, setSelectedFood, setBudget
   }
 ) {
-  const [cuisine, setCuisine] = useState();
-  const [food, setFood] = useState();
+  const [cuisine, setCuisine] = useState(cuisineFile);
+  const [food, setFood] = useState(foodFile);
 
   const navigate = useNavigate();
-  
+
+  /*
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/cuisine`)
       .then((response) => response.json())
       .then(setCuisine)
       .catch(alert);
-  }, []);
+  }, [])
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/food`)
+    /*fetch(`${process.env.REACT_APP_API_URL}/food`)
       .then((response) => response.json())
       .then(setFood)
       .catch(alert);
-  }, []);
+  }, []);*/
 
   const handleSubmit = (e) => {
+    if (selectedCuisine.length>5) {
+      alert ("Please select no more than 5 cuisine options")
+      return
+    }
     navigate("/SearchResults")
-    
   };
 
   const handleCuisineChange = (e) => {
@@ -94,7 +99,7 @@ function Main(
       >
           <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
             <FormLabel style={{ fontSize: "20px" }} component="legend">
-              Select cuisine you love
+              Select cuisine you love (up to 5)
             </FormLabel>
             
             <FormGroup
@@ -132,7 +137,7 @@ function Main(
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
             <FormLabel style={{ fontSize: "20px" }} component="legend">
-              Food restrictions
+              Food restrictions (optional)
             </FormLabel>
             <FormGroup
               sx={{

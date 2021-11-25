@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -11,25 +11,36 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 
-export default function RestaurantCard({ matchingRestaurants }) {
-  const [clicked, setClicked] = useState(false)
-  const [savedRest, setSavedRest] = useState([])
-  
-  const handleBookmark = (e) => {
-   
-        let newArray = [...savedRest]
-        newArray.push (e.target.value)
-        setSavedRest(newArray)
-      }
+export default function RestaurantCard({ matchingRestaurants, bookmarkedRestaurants, setBookmarkedRestaurants, user }) {
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    //let tmpMap = clicked
-    //tmpMap.set (e.target.id, !clicked.get(e.target.id))
-    //e.target.value = !e.target.vaue
-    setClicked(!clicked)
+  const handleClick = (item) => {
+    let itemIndex=bookmarkedRestaurants.findIndex(arrItem => arrItem.restaurantId === item.id)
     
-    //e.target.value= !e.target.value
+    let newBookmarkObject = {
+      city: item.city,
+      restaurantId: item.id
+    }
+
+    fetch(`${process.env.REACT_APP_API_URL}/addBookmark/${user.uid}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newBookmarkObject),
+    })
+    .then((response) => response.json())
+    .catch(alert);
+
+    let tmpBookmarkedRestaurants = bookmarkedRestaurants
+    
+    if (itemIndex>-1) 
+    {
+      tmpBookmarkedRestaurants.splice(itemIndex, 1)
+    } else {
+      tmpBookmarkedRestaurants.push (newBookmarkObject)
+    }
+    
+    setBookmarkedRestaurants ([...tmpBookmarkedRestaurants])
   }
 
   return (
@@ -47,18 +58,16 @@ export default function RestaurantCard({ matchingRestaurants }) {
       >
         {matchingRestaurants.map((item) => {
           let imageURL = `${item.url}`
-          //let tmpMap = clicked
-          //tmpMap.set(item.id,false)
-          //setClicked(tmpMap) 
           return (
             <Grid item xs={12} sm={6} md={3}>
               <Card sx={{ maxWidth: 345, height: 350, display: "flex", flexDirection: "column", justifyContent: "center"}}>
               
-              <IconButton onClick={handleClick} value={false} name={item.id} id={item.id} size="large"  style={{position: 'absolute', paddingLeft:"300px"}}>
-         
-          {clicked ? <BookmarkIcon /> : <BookmarkBorderIcon /> }
-          
-              </IconButton>
+              {bookmarkedRestaurants ? (<IconButton onClick={(e) => handleClick(item)}  name={item.id} id={item.id} size="large"  style={{position: 'absolute', paddingLeft:"300px"}}>
+              
+              {bookmarkedRestaurants.find(arrItem => arrItem.restaurantId === item.id) ? <BookmarkIcon /> : <BookmarkBorderIcon /> }
+              </IconButton>)
+              : (<div></div>)
+              }
                 <CardMedia
                   component="img"
                   height="140"

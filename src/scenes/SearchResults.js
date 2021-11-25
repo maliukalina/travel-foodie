@@ -20,9 +20,6 @@ function SearchResults(
   const [matchingRestaurants, setMatchingRestaurants] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    window.localStorage.setItem("topCity", JSON.stringify(topCity));
-  }, [topCity]);
 
   useEffect(() => {
     const data = {
@@ -30,7 +27,10 @@ function SearchResults(
       food: selectedFood,
       budget: budget,
     };
-
+    if (selectedCuisine.length===0) {
+      navigate ("/")
+      return
+    }
     fetch(`${process.env.REACT_APP_API_URL}/search`, {
       method: "POST",
       headers: {
@@ -68,6 +68,7 @@ function SearchResults(
  
 
   useEffect(() => {
+    if (topCity && topCity.name) {
     const data = {
       cuisine: selectedCuisine,
       food: selectedFood,
@@ -86,6 +87,7 @@ function SearchResults(
           setMatchingRestaurants(data);
       })
       .catch(alert);
+    }
   }, [topCity]);
 
   
@@ -96,13 +98,13 @@ function SearchResults(
   return (
     <>
       <Navbar user={user}/>
-      {!topCity.name ? <h2>Loading...</h2> : <CityHero topCity={topCity} />}
-      {!topCity.name ? <h2>Loading...</h2> : <CityDescription topCity={topCity} />}
+      {!(topCity && topCity.name) ? <h2>Loading...</h2> : <CityHero topCity={topCity} />}
+      {!(topCity && topCity.name) ? <h2>Loading...</h2> : <CityDescription topCity={topCity} />}
       <RestaurantCard
           matchingRestaurants={matchingRestaurants}
         />
         <div className="textSign">
-      <p>Sign up for free to bookmark restaurants in {topCity.name}</p>
+      <p>Sign up for free to bookmark restaurants in {(topCity && topCity.name) ? topCity.name : " "}</p>
       <Button onClick={(e) => {
           e.preventDefault();
           handleSubmit(e)}}

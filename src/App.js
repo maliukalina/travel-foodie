@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom'
-import React, {useState} from 'react';
+import React, {createContext, useState} from 'react';
 import './App.css';
 import { amber, blue, orange, pink } from '@mui/material/colors';
 import { createTheme } from '@mui/material';
@@ -27,15 +27,24 @@ const theme = createTheme({
   
 });
 
+export const UserContext = createContext(null);
+
 function App() {
 
-  const [user, setUser] = useState()
+  const [user, setUser] = useState(null)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const [selectedCuisine, setSelectedCuisine] = useState([])
   const [selectedFood, setSelectedFood] = useState([]);
   const [budget, setBudget] = useState("");
-  const [topCity, setTopCity] = useState({});
-
+  const [topCity, setTopCity] = useState();
+  
+  
+  
   return (
+    <UserContext.Provider
+        value={{ user, setUser, isLoggedIn, setIsLoggedIn }}
+      >
    <Router>
       <ThemeProvider theme={theme}>
     
@@ -77,7 +86,8 @@ function App() {
     />} />
     </Routes>
     </ThemeProvider>
-      </Router>
+    </Router>
+  </UserContext.Provider>
   );
 }
 

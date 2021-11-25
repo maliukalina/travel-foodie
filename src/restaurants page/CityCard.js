@@ -19,8 +19,9 @@ export default function CityCard({destinations, setSelectedDestination}) {
   const handleSubmit = (e) => {
     navigate("/")
   }
-  const handleSelectedDestination = (e) => {
-    setSelectedDestination(e.target.value)
+  const handleSelectedDestination = (index) => {
+    console.log (index)
+    setSelectedDestination(index)
   }
   return (
     <>
@@ -45,11 +46,11 @@ export default function CityCard({destinations, setSelectedDestination}) {
         paddingLeft="20px"
         paddingRight="20px"
       >
-    {destinations ? destinations.map ( (item) => {
+    {destinations ? destinations.map ( (item, index) => {
     return (
-    <Grid  item xs={12} sm={6} md={3} onClick={setSelectedDestination(item)}>
-    <Card value={item}  sx={{ maxWidth: 345, display: "flex", flexDirection: "column", justifyContent: "center"}}>
-      <CardActionArea onClick={setSelectedDestination(item)}>
+    <Grid item xs={12} sm={6} md={3}>
+    <Card   onClick={(e) => handleSelectedDestination(item)} sx={{ maxWidth: 345, display: "flex", flexDirection: "column", justifyContent: "center"}}>
+      <CardActionArea>
         <CardMedia
           component="img"
           height="140"
