@@ -1,12 +1,15 @@
-import React, {useState, useEffect } from "react";
+import React, {useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import Box from '@mui/material/Box';
 import Button from "@mui/material/Button";
 import Navbar from "../components/common/Navbar";
 import Footer from "../components/common/Footer";
-
+import Fab from "../components/common/Fab";
 import CityHero from "../components/CityDescription/CityHero";
 import CityDescription from "../components/CityDescription/CityDescription";
 import RestaurantCard from "../restaurants page/RestaurantCard";
+import LoadingAnimation from "../components/common/LoadingAnimation";
+import { UserContext } from "../App";
 
 function SearchResults(
   { 
@@ -16,7 +19,7 @@ function SearchResults(
   }
 ) {
   
-  
+  const {user} = useContext(UserContext)
   const [matchingRestaurants, setMatchingRestaurants] = useState([]);
   const navigate = useNavigate();
 
@@ -43,53 +46,13 @@ function SearchResults(
         if (data.length<1) {
           alert ("There is no restaurants found for your criteria. Please try again")
           navigate ('/')
+          //return
         }
-        let topObject = {
-          name: "",
-          score: Math.max.apply(
-            Math,
-            data.matchingCities.map(function (o) {
-              return o.score
-            })
-          ),
-        };
-        data.matchingCities.map((item) => {
-          if (item.score === topObject.score) {
-            topObject.name = item.name
-            topObject.url = item.url
-          }
-        })
-
-        setTopCity(topObject);
+        setTopCity(data.topCity);
+        setMatchingRestaurants(data.matchingRestaurants)
       })
       .catch((err) => alert(err));
   }, []);
-
- 
-
-  useEffect(() => {
-    if (topCity && topCity.name) {
-    const data = {
-      cuisine: selectedCuisine,
-      food: selectedFood,
-      budget: budget,
-    };
-    fetch(`${process.env.REACT_APP_API_URL}/search/${topCity.name}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.length>0)
-          setMatchingRestaurants(data);
-      })
-      .catch(alert);
-    }
-  }, [topCity]);
-
   
   const handleSubmit = (e) => {
     navigate("/MyAccount")
@@ -98,19 +61,41 @@ function SearchResults(
   return (
     <>
       <Navbar />
-      {!(topCity && topCity.name) ? <h2>Loading...</h2> : <CityHero topCity={topCity} />}
-      {!(topCity && topCity.name) ? <h2>Loading...</h2> : <CityDescription topCity={topCity} />}
-      <RestaurantCard
+      {!(topCity && topCity.name) ? 
+      (
+        <Box>
+        <LoadingAnimation /> 
+        </Box>
+      )
+      : (
+       <Box>
+        <CityHero topCity={topCity} />
+        <div><p className="cityDescription">{topCity.description}</p></div>
+        <div className="restaurants">Among Top-100 Restaurants in {topCity.name}, there are {matchingRestaurants.length} restaurants mathing your search crireria</div>
+        {/*<RestaurantCard
           matchingRestaurants={matchingRestaurants}
-        />
+        />*/}
+        {!user ?
         <div className="textSign">
-      <p>Sign up for free to bookmark restaurants in {(topCity && topCity.name) ? topCity.name : " "}</p>
-      <Button onClick={(e) => {
+        <p>Sign up for free to bookmark restaurants in {(topCity && topCity.name) ? topCity.name : " "}</p>
+      < Button onClick={(e) => {
           e.preventDefault();
           handleSubmit(e)}}
            style={{ width: "150px", height: "50px", marginBottom: "20px", fontSize: "15px"}} type='submit' variant="contained">Sign Up</Button> 
-      </div>
-      <Footer />
+        </div>
+        : <div className="textSign">
+          <Button onClick={(e) => {
+          e.preventDefault();
+          handleSubmit(e)}}
+          style={{ width: "150px", height: "50px", marginBottom: "20px", fontSize: "15px"}} type='submit' variant="contained">Bookmark restaurants</Button>
+        </div>
+        }
+        <Footer />
+       
+      </Box>
+      
+      )} 
+      
       
     </>
   );

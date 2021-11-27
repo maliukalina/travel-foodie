@@ -17,11 +17,15 @@ function LoggedIn({
   const [matchingRestaurants, setMatchingRestaurants] = useState([]);
   const [bookmarkedRestaurants, setBookmarkedRestaurants] = useState([]);
 
-  const {setUser, setIsLoggedIn, user, isLoggedIn} = useContext(UserContext)
+  const {user, jwt} = useContext(UserContext)
 
   useEffect(() => {
     if (user) setDestinations(user.destinations)
   }, [user])
+
+  useEffect(() => {
+    if (user) setBookmarkedRestaurants (user.bookmarks)
+  }, []);
 
   useEffect(() => {
     if (user) setBookmarkedRestaurants (user.bookmarks)
@@ -35,10 +39,12 @@ function LoggedIn({
         budget: budget,
         city: topCity.name
       }
-      fetch(`${process.env.REACT_APP_API_URL}/addDestination/${user.uid}`, {
+      let tmpJWT = localStorage.getItem("jwt")
+      fetch(`${process.env.REACT_APP_API_URL}/addDestination`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: tmpJWT
         },
         body: JSON.stringify(data),
       })

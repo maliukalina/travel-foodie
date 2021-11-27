@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom'
-import React, {createContext, useState} from 'react';
+import React, {createContext, useEffect, useState} from 'react';
 import './App.css';
 import { amber, blue, orange, pink } from '@mui/material/colors';
 import { createTheme } from '@mui/material';
@@ -27,23 +27,42 @@ const theme = createTheme({
   
 });
 
+//auth.currentUser
 export const UserContext = createContext(null);
+
 
 function App() {
 
   const [user, setUser] = useState(null)
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [jwt, setJwt] = useState(localStorage.getItem("jwt"))
 
   const [selectedCuisine, setSelectedCuisine] = useState([])
   const [selectedFood, setSelectedFood] = useState([]);
   const [budget, setBudget] = useState("");
   const [topCity, setTopCity] = useState();
   
-  
-  
+
+  useEffect (() => {
+    if (jwt !== null) {
+      fetch(`${process.env.REACT_APP_API_URL}/getUser`,
+        { headers: {Authorization: jwt}}
+        )
+        .then((apiResponse) => {
+          if (apiResponse.status === 403) 
+            {
+              localStorage.removeItem("jwt")
+              return
+            }
+          return apiResponse.json()
+        })
+        .then((data) => setUser)
+        .catch(alert);
+    }
+  }, [])
+
   return (
     <UserContext.Provider
-        value={{ user, setUser, isLoggedIn, setIsLoggedIn }}
+        value={{ user, setUser, jwt, setJwt }}
       >
    <Router>
       <ThemeProvider theme={theme}>
@@ -77,6 +96,7 @@ function App() {
     setSelectedCuisine={setSelectedCuisine}
     setSelectedFood={setSelectedFood} 
     setBudget={setBudget}
+    setTopCity={setTopCity}
     />} />
     </Routes>
     </ThemeProvider>

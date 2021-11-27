@@ -30,7 +30,7 @@ export default function SignupForm() {
   const [password, setPassword] = useState("")
   const app = initializeApp(firebaseConfig)
   const auth = getAuth(app)
-  const {setUser, setIsLoggedIn} = useContext(UserContext)
+  const {setUser, setJwt} = useContext(UserContext)
 
   const handleSignup = (e) => {
     e.preventDefault()
@@ -52,6 +52,11 @@ export default function SignupForm() {
           .then((apiResponse) => apiResponse.json())
           .then((data) => {
             response.user.displayName = name
+            response.user.getIdToken()
+            .then (jwtToken => {
+              localStorage.setItem('jwt', jwtToken)
+              setJwt(jwtToken)
+            })
             setUser(data)    
           })
           .catch(alert);

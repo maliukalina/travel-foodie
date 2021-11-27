@@ -1,0 +1,16 @@
+.fab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  background-color:#fff8e1;
+  color: black;
+  position: fixed;
+  z-index: 1;
+  left: 85%;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  bottom: 24px;
+  filter: drop-shadow(0.25rem 0.5rem 0.5rem #15151599);
+}

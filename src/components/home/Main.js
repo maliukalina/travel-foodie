@@ -16,7 +16,8 @@ import foodFile from "../../assets/food"
 function Main(
   { 
     selectedCuisine, selectedFood, budget,
-    setSelectedCuisine, setSelectedFood, setBudget
+    setSelectedCuisine, setSelectedFood, setBudget,
+    setTopCity
   }
 ) {
   const [cuisine, setCuisine] = useState(cuisineFile);
@@ -43,6 +44,7 @@ function Main(
       alert ("Please select no more than 5 cuisine options")
       return
     }
+    setTopCity ([])
     navigate("/SearchResults")
   };
 

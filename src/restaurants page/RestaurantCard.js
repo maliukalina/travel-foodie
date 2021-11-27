@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useContext, useState, useEffect} from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -9,9 +9,11 @@ import Grid from "@mui/material/Grid";
 import IconButton from '@mui/material/IconButton';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
-
+import { UserContext } from "../App";
 
 export default function RestaurantCard({ matchingRestaurants, bookmarkedRestaurants, setBookmarkedRestaurants, user }) {
+
+  const {jwt} = useContext(UserContext)
 
   const handleClick = (item) => {
     let itemIndex=bookmarkedRestaurants.findIndex(arrItem => arrItem.restaurantId === item.id)
@@ -21,10 +23,11 @@ export default function RestaurantCard({ matchingRestaurants, bookmarkedRestaura
       restaurantId: item.id
     }
 
-    fetch(`${process.env.REACT_APP_API_URL}/addBookmark/${user.uid}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/addBookmark`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: jwt
       },
       body: JSON.stringify(newBookmarkObject),
     })

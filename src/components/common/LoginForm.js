@@ -32,20 +32,27 @@ export default function Login({ type }) {
   const [formType, setFormType] = useState("login")
   const app = initializeApp(firebaseConfig)
   const auth = getAuth(app)
-  const {setUser, setIsLoggedIn} = useContext(UserContext)
+  const {setUser, jwt, setJwt} = useContext(UserContext)
 
   const handleLogin = (e) => {
     e.preventDefault()
     signInWithEmailAndPassword(auth, email, password)
       .then(response => {
-        fetch(`${process.env.REACT_APP_API_URL}/getUser/${response.user.uid}`)
+        let tmpJWT = null
+        response.user.getIdToken()
+        .then (jwtToken => {
+            localStorage.setItem('jwt', jwtToken)
+            setJwt(jwtToken)
+            tmpJWT = jwtToken
+          })
+        .then (() => { 
+        fetch(`${process.env.REACT_APP_API_URL}/getUser`,
+        { headers: {Authorization: tmpJWT}}
+        )
         .then((apiResponse) => apiResponse.json())
-        .then((data) =>
-          {
-            response.user.displayName = data.name
-            setUser(response.user)
-        })
+        .then((data) => setUser(data))
         .catch(alert);
+        })
       })
       .catch(err => alert(err.message))
   }
@@ -69,6 +76,11 @@ export default function Login({ type }) {
         })
           .then((apiResponse) => apiResponse.json())
           .then((data) => {
+            response.user.getIdToken()
+            .then (jwtToken => {
+              localStorage.setItem('jwt', jwtToken)
+              setJwt(jwtToken)
+            })
             setUser(data)    
           })
           .catch(alert);

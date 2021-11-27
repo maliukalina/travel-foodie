@@ -7,7 +7,8 @@ import Navbar from "../components/common/Navbar";
 function Home(
   { 
     selectedCuisine, selectedFood, budget,
-    setSelectedCuisine, setSelectedFood, setBudget
+    setSelectedCuisine, setSelectedFood, setBudget,
+    setTopCity
   }
 ) {
   
@@ -28,6 +29,7 @@ function Home(
     setSelectedCuisine={setSelectedCuisine}
     setSelectedFood={setSelectedFood} 
     setBudget={setBudget} 
+    setTopCity={setTopCity}
     />
     <Footer />
     </>
