@@ -50,7 +50,7 @@ export default function Login({ type }) {
         { headers: {Authorization: tmpJWT}}
         )
         .then((apiResponse) => apiResponse.json())
-        .then((data) => setUser(data))
+        .then(setUser)
         .catch(alert);
         })
       })

@@ -9,6 +9,9 @@ import Grid from "@mui/material/Grid";
 import IconButton from '@mui/material/IconButton';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import { Container } from '@material-ui/core';
 import { UserContext } from "../App";
 
 export default function RestaurantCard({ matchingRestaurants, bookmarkedRestaurants, setBookmarkedRestaurants, user }) {
@@ -48,7 +51,14 @@ export default function RestaurantCard({ matchingRestaurants, bookmarkedRestaura
 
   return (
     <>
-      
+      <Box component="main"
+      sx={{
+        marginTop: 8,
+        paddingTop:"30px",
+        paddingBottom:"30px",
+        paddingLeft:"30px"
+      }}>
+        <CssBaseline />
       <Grid
         container
         spacing={2}
@@ -112,6 +122,7 @@ export default function RestaurantCard({ matchingRestaurants, bookmarkedRestaura
           );
         })}
       </Grid>
+      </Box>
     </>
   );
 }

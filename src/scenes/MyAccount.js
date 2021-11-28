@@ -5,7 +5,10 @@ import Footer from "../components/common/Footer";
 import LoginForm from "../components/common/LoginForm";
 import RestaurantCard from "../restaurants page/RestaurantCard";
 import CityCard from "../restaurants page/CityCard";
+import CssBaseline from '@mui/material/CssBaseline';
 import { UserContext } from "../App";
+import { Typography } from "@mui/material";
+import { Container } from '@material-ui/core';
 
 function LoggedIn({
   selectedCuisine, selectedFood, budget,
@@ -72,10 +75,7 @@ function LoggedIn({
       body: JSON.stringify(data),
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.log (data)
-        setMatchingRestaurants(data);
-      })
+      .then(setMatchingRestaurants) 
       .catch(alert);
     }
   }, [selectedDestination]);
@@ -90,9 +90,10 @@ function LoggedIn({
         <Box>
           <CityCard
             destinations={destinations}
+            selectedDestination={selectedDestination}
             setSelectedDestination={setSelectedDestination}
           />
-          {matchingRestaurants ? (
+          {selectedDestination ? (
          
             <RestaurantCard
               matchingRestaurants={matchingRestaurants}
@@ -103,9 +104,10 @@ function LoggedIn({
             />
             
             ) : (
-              
-              <p>Select city to view matching restaurants</p>
-              
+              <Container component="main" sx={{display: "flex", alignContent: "center"}}>
+              <CssBaseline />
+              <Typography gutterBottom variant="h5" component="div" sx={{width: "100%"}}>Select city to view matching restaurants</Typography>
+              </Container>
 
             )
           }

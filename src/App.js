@@ -48,14 +48,14 @@ function App() {
         { headers: {Authorization: jwt}}
         )
         .then((apiResponse) => {
-          if (apiResponse.status === 403) 
+          if ((apiResponse.status === 403) || (apiResponse.status === 500) )
             {
               localStorage.removeItem("jwt")
               return
             }
           return apiResponse.json()
         })
-        .then((data) => setUser)
+        .then(setUser)
         .catch(alert);
     }
   }, [])

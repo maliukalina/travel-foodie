@@ -13,14 +13,13 @@ import { CardActionArea } from '@mui/material';
 import { Container } from '@material-ui/core';
 import { useNavigate } from "react-router-dom";
 
-export default function CityCard({destinations, setSelectedDestination}) {
+export default function CityCard({destinations, selectedDestination, setSelectedDestination}) {
   
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     navigate("/")
   }
   const handleSelectedDestination = (index) => {
-    console.log (index)
     setSelectedDestination(index)
   }
   return (
@@ -36,17 +35,26 @@ export default function CityCard({destinations, setSelectedDestination}) {
           }}
         >
           <p style={{textDecorationStyle:"solid", fontSize:"2vw"}}>Your Destinations</p>
-      <Grid
-        container
-        spacing={2}
-        direction="row"
-        justify="flex-start"
-        alignItems="flex-start"
-        paddingBottom="20px"
-        paddingLeft="20px"
-        paddingRight="20px"
-      >
-    {destinations ? destinations.map ( (item, index) => {
+      
+    {destinations ? (
+    <Grid
+    container
+    spacing={2}
+    direction="row"
+    justify="flex-start"
+    alignItems="flex-start"
+    paddingBottom="20px"
+    paddingLeft="20px"
+    paddingRight="20px"
+  >
+    {destinations.map ( (item, index) => {
+    let cardColor = "white"
+    if (selectedDestination)
+      {
+        if (selectedDestination.city===item.city) {
+          cardColor = "#fff8e1"
+      }
+      }
     return (
     <Grid item xs={12} sm={6} md={3}>
     <Card   onClick={(e) => handleSelectedDestination(item)} sx={{ maxWidth: 345, display: "flex", flexDirection: "column", justifyContent: "center"}}>
@@ -57,32 +65,60 @@ export default function CityCard({destinations, setSelectedDestination}) {
           image={item.url}
           alt={item.city}
         />
-        <CardContent>
+        <CardContent sx={{bgcolor:cardColor}}>
           <Typography gutterBottom variant="h5" component="div">
           <LocationOn style={{marginRight: "4",fontSize: "20"}}/>
           <span>{item.city}</span>
           
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-           
           </Typography>
         </CardContent>
       </CardActionArea>
       </Card>
       </Grid>
         )   
-      })
+      })}
+
+      <Grid item xs={12} sm={6} md={3}>
+      <Card onClick={(e) => {
+          e.preventDefault();
+          handleSubmit(e)}}  sx={{ maxWidth: 345, height: 212, display: "flex", flexDirection: "column", justifyContent: "center", alignContent:"center"}}>
+      <CardActionArea>
+        <CardContent>
+        <Typography gutterBottom variant="h5" component="div"> Find New Destination</Typography>
+        </CardContent>
+      </CardActionArea>
+      </Card>
+      </Grid>
+      </Grid>
+    )
        :
       (
-       <div></div>
+        <Grid
+    container
+    spacing={2}
+    direction="row"
+    justify="flex-start"
+    alignItems="flex-start"
+    paddingBottom="20px"
+    paddingLeft="20px"
+    paddingRight="20px"
+  >
+        <Grid item xs={12} sm={6} md={3}>
+        <Card onClick={(e) => {
+            e.preventDefault();
+            handleSubmit(e)}}  sx={{ maxWidth: 345, height: 212, display: "flex", flexDirection: "column", justifyContent: "center", alignContent:"center"}}>
+        <CardActionArea>
+          <CardContent>
+          <Typography gutterBottom variant="h5" component="div"> Find New Destination</Typography>
+          </CardContent>
+        </CardActionArea>
+        </Card>
+        </Grid>
+        </Grid>
       )
     }
-    </Grid>
-    <Button onClick={(e) => {
-          e.preventDefault();
-          handleSubmit(e)}}
-      variant="contained" 
-      style={{ width: "150px", height: "50px", marginBottom: "20px", fontSize: "15px"}} sx={{ mt: 3, mb: 2 }}>Find New Destination</Button>
+    
+    
       </Box>
       </Container>
        

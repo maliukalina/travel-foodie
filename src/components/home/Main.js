@@ -44,6 +44,10 @@ function Main(
       alert ("Please select no more than 5 cuisine options")
       return
     }
+    if (selectedCuisine.length===0) {
+      alert ("Please select at least one cuisine option")
+      return
+    }
     setTopCity ([])
     navigate("/SearchResults")
   };
@@ -100,9 +104,9 @@ function Main(
         paddingRight="20px"
       >
           <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-            <FormLabel style={{ fontSize: "20px" }} component="legend">
+            <p style={{ fontSize: "20px" }}>
               Select cuisine you love (up to 5)
-            </FormLabel>
+            </p>
             
             <FormGroup
               sx={{
@@ -138,9 +142,8 @@ function Main(
         </Box>
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-            <FormLabel style={{ fontSize: "20px" }} component="legend">
-              Food restrictions (optional)
-            </FormLabel>
+            <p style={{ fontSize: "20px" }}>Food restrictions (optional)
+            </p>
             <FormGroup
               sx={{
                 display: "flex",

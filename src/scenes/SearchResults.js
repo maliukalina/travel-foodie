@@ -43,11 +43,11 @@ function SearchResults(
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.length<1) {
-          alert ("There is no restaurants found for your criteria. Please try again")
-          navigate ('/')
-          //return
-        }
+        if (data.error) {
+            alert ("There is no restaurants found for your criteria. Please try again")
+            navigate ('/')
+            return
+          }
         setTopCity(data.topCity);
         setMatchingRestaurants(data.matchingRestaurants)
       })
@@ -71,7 +71,7 @@ function SearchResults(
        <Box>
         <CityHero topCity={topCity} />
         <div><p className="cityDescription">{topCity.description}</p></div>
-        <div className="restaurants">Among Top-100 Restaurants in {topCity.name}, there are {matchingRestaurants.length} restaurants mathing your search crireria</div>
+        <div className="restaurants">Among Top-100 Restaurants in {topCity.name}, there are {topCity.restaurantCount} restaurants mathing your search crireria</div>
         {/*<RestaurantCard
           matchingRestaurants={matchingRestaurants}
         />*/}
